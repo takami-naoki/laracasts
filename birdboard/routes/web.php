@@ -19,4 +19,3 @@ Route::get('/', function () {
 
 Route::get('/projects', [\App\Http\Controllers\ProjectsController::class, 'index']);
 Route::post('/projects', [\App\Http\Controllers\ProjectsController::class, 'store']);
-
