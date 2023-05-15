@@ -25,6 +25,15 @@ class ProjectsTest extends TestCase {
     }
 
     /** @test */
+    public function a_user_can_view_a_project() {
+        $project = Project::factory()->create();
+
+        $this->get($project->path())
+            ->assertSee($project->title)
+            ->assertSee($project->description);
+    }
+
+    /** @test */
     public function a_project_requires_a_title() {
         $attributes = Project::factory()->raw(['title' => '']);
         $this->post('/projects', $attributes)->assertSessionHasErrors('title');
