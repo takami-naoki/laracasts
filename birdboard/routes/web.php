@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/projects', [\App\Http\Controllers\ProjectsController::class, 'index']);
-Route::get('/projects/{project}', [\App\Http\Controllers\ProjectsController::class, 'show']);
-Route::post('/projects', [\App\Http\Controllers\ProjectsController::class, 'store']);
+Route::get('/projects', [\App\Http\Controllers\ProjectsController::class, 'index'])->middleware('auth');
+Route::get('/projects/{project}', [\App\Http\Controllers\ProjectsController::class, 'show'])->middleware('auth');
+Route::post('/projects', [\App\Http\Controllers\ProjectsController::class, 'store'])->middleware('auth');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
