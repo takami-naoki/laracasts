@@ -1,4 +1,6 @@
-const mix = require('laravel-mix');
+let mix = require('laravel-mix');
+
+require('laravel-mix-tailwind');
 
 /*
  |--------------------------------------------------------------------------
@@ -12,4 +14,6 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
+    .vue({ version: 2 })
+    .tailwind()
     .sass('resources/sass/app.scss', 'public/css');
