@@ -5,10 +5,6 @@ module.exports = {
     "./resources/**/*.vue",
   ],
   theme: {
-    boxShadow: {
-        default: '0 0 5px 0 rgba(0, 0, 0, 0.8)'
-    },
-
     extend: {
         colors: {
             'grey-light': '#F5F6F9',

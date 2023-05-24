@@ -15,5 +15,5 @@ require('laravel-mix-tailwind');
 
 mix.js('resources/js/app.js', 'public/js')
     .vue({ version: 2 })
-    .tailwind()
-    .sass('resources/sass/app.scss', 'public/css');
+    .sass('resources/sass/app.scss', 'public/css')
+    .tailwind();
