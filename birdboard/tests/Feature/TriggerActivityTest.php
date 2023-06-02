@@ -2,16 +2,17 @@
 
 namespace Tests\Feature;
 
+use App\Models\Project;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Facades\Tests\Setup\ProjectFactory;
 use Tests\TestCase;
 
-class ActivityFeedTest extends TestCase
+class TriggerActivityTest extends TestCase
 {
     use RefreshDatabase;
 
     /** @test */
-    function creating_a_project_records_activity() {
+    function creating_a_project() {
         $project = ProjectFactory::create();
 
         $this->assertCount(1, $project->activity);
@@ -19,7 +20,7 @@ class ActivityFeedTest extends TestCase
     }
 
     /** @test */
-    function updating_a_project_records_activity() {
+    function updating_a_project() {
         $project = ProjectFactory::create();
 
         $project->update(['title' => 'Changed']);
@@ -28,7 +29,7 @@ class ActivityFeedTest extends TestCase
     }
 
     /** @test */
-    function creating_a_new_task_records_project_activity() {
+    function creating_a_new_task() {
         $project = ProjectFactory::create();
 
         $project->addTask('Some task');
@@ -36,8 +37,8 @@ class ActivityFeedTest extends TestCase
         $this->assertEquals('created_task', $project->activity->last()->description);
     }
 
-        /** @test */
-    function completing_a_new_task_records_project_activity() {
+    /** @test */
+    function completing_a_task() {
         $project = ProjectFactory::withTasks(1)->create();
 
         $this->actingAs($project->owner)->patch($project->tasks[0]->path(), [
@@ -47,5 +48,36 @@ class ActivityFeedTest extends TestCase
 
         $this->assertCount(3, $project->activity);
         $this->assertEquals('completed_task', $project->activity->last()->description);
+    }
+
+    /** @test */
+    function incompleting_a_task() {
+        $project = ProjectFactory::withTasks(1)->create();
+
+        $this->actingAs($project->owner)->patch($project->tasks[0]->path(), [
+            'body' => 'foobar',
+            'completed' => true,
+        ]);
+
+        $this->assertCount(3, $project->activity);
+
+        $this->patch($project->tasks[0]->path(), [
+            'body' => 'foobar',
+            'completed' => false,
+        ]);
+
+        $project->refresh();
+
+        $this->assertCount(4, $project->activity);
+
+        $this->assertEquals('incompleted_task', $project->activity->last()->description);
+    }
+
+    /** @test */
+    function deleting_a_task() {
+        $project = ProjectFactory::withTasks(1)->create();
+
+        $project->tasks[0]->delete();
+        $this->assertCount(3, $project->activity);
     }
 }
