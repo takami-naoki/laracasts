@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class ProjectsController extends Controller {
 
@@ -43,9 +41,9 @@ class ProjectsController extends Controller {
 
     private function validateRequest() {
         return request()->validate([
-            'title' => 'required',
-            'description' => 'required',
-            'notes' => 'min :3',
+            'title' => 'sometimes|required',
+            'description' => 'sometimes|required',
+            'notes' => 'nullable',
         ]);
     }
 }
