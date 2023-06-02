@@ -2,6 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 
+\App\Models\Project::created(function ($project) {
+
+});
+
+\App\Models\Project::updated(function ($project) {
+
+});
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
