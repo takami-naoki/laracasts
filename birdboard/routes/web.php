@@ -35,7 +35,7 @@ Route::group(['middleware' => 'auth'], function() {
 //    Route::delete('/projects/{project}', [\App\Http\Controllers\ProjectsController::class, 'destroy']);
     Route::resource('projects', \App\Http\Controllers\ProjectsController::class);
 
-    Route::post('/projects/{project}/tasks', [\App\Http\Controllers\ProjectTasksController::class, 'store']);
+    Route::post('/projects/{project}/tasks', [\App\Http\Controllers\ProjectTasksController::class, 'store'])->name('tasks.store');
     Route::patch('/projects/{project}/tasks/{task}', [\App\Http\Controllers\ProjectTasksController::class, 'update']);
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

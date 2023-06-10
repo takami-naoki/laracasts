@@ -27,10 +27,19 @@ class ProjectTest extends TestCase {
 
     /** @test */
     public function it_can_add_a_task() {
-        $project = Project::factory('App\Project')->create();
+        $project = Project::factory()->create();
         $task = $project->addTask('Test Task');
 
         $this->assertCount(1, $project->tasks);
         $this->assertTrue($project->tasks->contains($task));
+    }
+
+    /** @test */
+    function it_can_invite_a_user() {
+        $project = Project::factory()->create();
+
+        $project->invite($user = User::factory()->create());
+
+        $this->assertTrue($project->members->contains($user));
     }
 }
