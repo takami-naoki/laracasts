@@ -18,17 +18,12 @@ Route::get('/', function () {
 });
 
 Route::group(['middleware' => 'auth'], function() {
-//    Route::get('/projects', [\App\Http\Controllers\ProjectsController::class, 'index']);
-//    Route::get('/projects/create', [\App\Http\Controllers\ProjectsController::class, 'create']);
-//    Route::get('/projects/{project}', [\App\Http\Controllers\ProjectsController::class, 'show']);
-//    Route::get('/projects/{project}/edit', [\App\Http\Controllers\ProjectsController::class, 'edit']);
-//    Route::patch('/projects/{project}', [\App\Http\Controllers\ProjectsController::class, 'update']);
-//    Route::post('/projects', [\App\Http\Controllers\ProjectsController::class, 'store']);
-//    Route::delete('/projects/{project}', [\App\Http\Controllers\ProjectsController::class, 'destroy']);
     Route::resource('projects', \App\Http\Controllers\ProjectsController::class);
 
     Route::post('/projects/{project}/tasks', [\App\Http\Controllers\ProjectTasksController::class, 'store'])->name('tasks.store');
     Route::patch('/projects/{project}/tasks/{task}', [\App\Http\Controllers\ProjectTasksController::class, 'update']);
+
+    Route::post('/projects/{project}/invitations', [\App\Http\Controllers\ProjectInvitationsController::class, 'store']);
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });
