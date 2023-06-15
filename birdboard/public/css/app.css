@@ -631,8 +631,14 @@ video {
 .max-w-6xl {
   max-width: 72rem;
 }
+.flex-1 {
+  flex: 1 1 0%;
+}
 .grid-cols-1 {
   grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+.flex-col {
+  flex-direction: column;
 }
 .items-end {
   align-items: flex-end;
@@ -674,6 +680,9 @@ video {
 .border-gray-200 {
   --tw-border-opacity: 1;
   border-color: rgb(229 231 235 / var(--tw-border-opacity));
+}
+.border-grey {
+  border-color: rgba(0, 0, 0, 0.4);
 }
 .border-grey-light {
   --tw-border-opacity: 1;
