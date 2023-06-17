@@ -12,6 +12,7 @@ module.exports = {
             'grey': 'rgba(0, 0, 0, 0.4)',
             'blue': '#47cdff',
             'blue-light': '#8ae2fe',
+            'error': 'var(--text-error-color)',
             page: 'var(--page-background-color)',
             card: 'var(--card-background-color)',
             button: 'var(--button-background-color)',
