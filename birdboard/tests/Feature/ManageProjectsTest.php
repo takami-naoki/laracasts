@@ -37,6 +37,19 @@ class ManageProjectsTest extends TestCase {
     }
 
     /** @test */
+    function task_can_be_included_as_part_a_new_project_creation() {
+        $this->signIn();
+
+        $attributes = Project::factory()->raw();
+        $attributes['tasks'] = [
+            ['body' => 'Task 1'],
+            ['body' => 'Task 2'],
+        ];
+        $this->post('/projects', $attributes);
+        $this->assertCount(2, Project::first()->tasks);
+    }
+
+    /** @test */
     public function unauthorized_users_cannot_delete_projects() {
 
         $project = ProjectFactory::create();
